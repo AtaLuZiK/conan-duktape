@@ -1,0 +1,17 @@
+find_path(DUKTAPE_INCLUDE_DIR NAMES duktape.h PATHS ${CONAN_INCLUDE_DIRS_DUKTAPE})
+find_library(DUKTAPE_LIBRARY NAMES duktape PATHS ${CONAN_LIB_DIRS_DUKTAPE})
+find_program(DUKTAPE_CMDLINE NAMES duk PATHS ${CONAN_BIN_DIRS_DUKTAPE})
+
+add_library(duktape INTERFACE IMPORTED)
+set_target_properties(duktape PROPERTIES
+  INTERFACE_INCLUDE_DIRECTORIES ${DUKTAPE_INCLUDE_DIR}
+  INTERFACE_LINK_LIBRARIES ${DUKTAPE_LIBRARY}
+)
+
+mark_as_advanced(DUKTAPE_INCLUDE_DIR DUKTAPE_LIBRARY DUKTAPE_CMDLINE)
+set(DUKTAPE_FOUND TRUE)
+
+message("** duktape found by Conan!")
+message("   - includes: ${DUKTAPE_INCLUDE_DIR}")
+message("   - libraries ${DUKTAPE_LIBRARY}")
+message("   - executable ${DUKTAPE_CMDLINE}")
