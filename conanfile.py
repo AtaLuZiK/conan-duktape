@@ -48,10 +48,11 @@ class DuktapeConan(ConanFile):
         self.copy("*.h", dst="include", src="%s/src" % self.zip_folder_name)
         self.copy("duktape.lib", dst="lib", src="lib")
         self.copy("*.dll", dst="bin", keep_path=False)
-        self.copy("*.exe", dst="bin", keep_path=False)
         self.copy("*.so", dst="lib", src="lib")
         self.copy("*.dylib", dst="lib", src="lib")
         self.copy("*.a", dst="lib", src="lib")
+        self.copy("duk", dst="bin", src="bin")
+        self.copy("*.exe", dst="bin", keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = ["duktape"]
