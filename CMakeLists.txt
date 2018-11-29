@@ -10,11 +10,6 @@ add_library(duktape
     ${CMAKE_CURRENT_SOURCE_DIR}/src/duktape.c
 )
 
-if(UNIX)
-    target_link_libraries(duktape m)
-endif(UNIX)
-
-
 add_executable(duk
     ${CMAKE_CURRENT_SOURCE_DIR}/src/duktape.c
     ${CMAKE_CURRENT_SOURCE_DIR}/examples/cmdline/duk_cmdline.c
@@ -36,3 +31,7 @@ target_include_directories(duk
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/extras/logging
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/extras/module-duktape
 )
+
+if(UNIX)
+    target_link_libraries(duk m)
+endif(UNIX)
