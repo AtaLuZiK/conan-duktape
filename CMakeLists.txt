@@ -10,6 +10,11 @@ add_library(duktape
     ${CMAKE_CURRENT_SOURCE_DIR}/src/duktape.c
 )
 
+if(UNIX)
+    target_link_libraries(duktape m)
+endif(UNIX)
+
+
 add_executable(duk
     ${CMAKE_CURRENT_SOURCE_DIR}/src/duktape.c
     ${CMAKE_CURRENT_SOURCE_DIR}/examples/cmdline/duk_cmdline.c
