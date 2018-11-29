@@ -4,6 +4,16 @@ project (duktape C)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+include(CheckSymbolExists)
+
+check_symbol_exists(DUK_F_DLL_BUILD ${CMAKE_CURRENT_SOURCE_DIR}/src/duk_config.h DUK_F_DLL_BUILD_DEFINED)
+
+if(BUILD_SHARED_LIBS AND NOT DUK_F_DLL_BUILD_DEFINED)
+  message(FATAL_ERROR "Build shared library without define DUK_F_DLL_BUILD")
+elseif(NOT BUILD_SHARED_LIBS AND DUK_F_DLL_BUILD_DEFINED)
+  message(FATAL_ERROR "Build static library with DUK_F_DLL_BUILD")
+endif(BUILD_SHARED_LIBS AND NOT DUK_F_DLL_BUILD_DEFINED)
+
 add_library(duktape
     ${CMAKE_CURRENT_SOURCE_DIR}/src/duk_config.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/duktape.h

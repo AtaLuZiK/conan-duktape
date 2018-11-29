@@ -32,14 +32,14 @@ class DuktapeConan(ConanFile):
         tools.unzip(zip_name)
         os.unlink(zip_name)
 
+    def build(self):
         if self.options.shared:
             config_file = "duk_config.h.shared"
         else:
             config_file = "duk_config.h.static"
         shutil.move(config_file, "%s/src/duk_config.h" % self.zip_folder_name)
         shutil.move("CMakeLists.txt", "%s/CMakeLists.txt" % self.zip_folder_name)
-
-    def build(self):
+        
         cmake = CMake(self)
         cmake.configure(source_folder=self.zip_folder_name)
         cmake.build()
